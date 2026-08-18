@@ -2,23 +2,24 @@
 
 1. [Introduction](#introduction)
 2. [File Transfer Application](#file-transfer-application)
-    - [Protocol Specification](#protocol-specification)
-    - [Requirements](#requirements_file_transfer)
-    - [Usage](#usage_file_transfer)
-    - [Document](#document_file_transfer)
-4. [SDN-based Network Traffic Control](#sdn-based-network-traffic-control)
-    - [Requirements](#requirements_SDN)
-    - [Usage](#usage_SDN)
-    - [Document](#document_SDN)
-5. [Contributors](#contributors)
+   - [Protocol Specification](#protocol-specification)
+   - [Requirements](#requirements_file_transfer)
+   - [Usage](#usage_file_transfer)
+   - [Document](#document_file_transfer)
+3. [SDN-based Network Traffic Control](#sdn-based-network-traffic-control)
+   - [Requirements](#requirements_SDN)
+   - [Usage](#usage_SDN)
+   - [Document](#document_SDN)
+4. [Contributors](#contributors)
 
 ## Introduction
 
-The repository consists of two different projects: **File Transfer Application** and **SDN-based Network Traffic Control**. The repo houses the codes for both projects, each residing in its respective folder named **file_transfer** and **network_traffic_control**. 
+The repository consists of two different projects: **File Transfer Application** and **SDN-based Network Traffic Control**. The repo houses the codes for both projects, each residing in its respective folder named **file_transfer** and **network_traffic_control**.
 
 ## File Transfer Application
 
-The project aims to utilize Python socket programming to implement a client-side application for file uploading, adhering to a custom application-layer protocol.    
+The project aims to utilize Python socket programming to implement a client-side application for file uploading, adhering to a custom application-layer protocol.
+
 > **Note**: The protocol and the server-side application was defined and implemented by XJTLU Dr. Fei Cheng.
 
 ### Protocol Specification
@@ -32,15 +33,14 @@ The figure and table below clarify the message format:
   <img src="./images/STEP_message_format.svg" alt="STEP Message Format" width="500" />
 </p>
 
-| Part                                                     | Length (Bytes) | Description                                                                                | 
-|--------------------------------------------------------- |:--------------:|--------------------------------------------------------------------------------------------|
-| Length of JSON Data (Compulsory, Binary, unsigned int)   | 4              | Represent the length of JSON Data (N), allowing for a maximum length of 2^32 bytes         | 
-| Length of Binary Data (Compulsory, Binary, unsigned int) | 4              | Represent the length of Binary File Data (M), allowing for a maximum length of 2^32 bytes  |
-| JSON Data (Compulsory, Text but encoded to Binary)       | N              | JSON data which should be decoded and parsed according to JSON rules                       |
-| Binary File Data (Optional, Binary)                      | M              | Binary file data, file or block                                                            |
+| Part                                                     | Length (Bytes) | Description                                                                               |
+| -------------------------------------------------------- | :------------: | ----------------------------------------------------------------------------------------- |
+| Length of JSON Data (Compulsory, Binary, unsigned int)   |       4        | Represent the length of JSON Data (N), allowing for a maximum length of 2^32 bytes        |
+| Length of Binary Data (Compulsory, Binary, unsigned int) |       4        | Represent the length of Binary File Data (M), allowing for a maximum length of 2^32 bytes |
+| JSON Data (Compulsory, Text but encoded to Binary)       |       N        | JSON data which should be decoded and parsed according to JSON rules                      |
+| Binary File Data (Optional, Binary)                      |       M        | Binary file data, file or block                                                           |
 
-
-**Reserved Fields of JSON Data**:  
+**Reserved Fields of JSON Data**:
 
 > **Note**: The operations related to data (e.g., SAVE, DELETE, and GET for data) are not relevant to this project though it is well-defined in the protocol, as the primary objective is to implement a client-side application for file uploading.
 
@@ -83,28 +83,38 @@ The figure and table below clarify the message format:
 11. **token**: A string obtained during the authorization process.
 
 ### Requirements_file_transfer
+
 - Python3
 
 ### Usage_file_transfer
+
 1. Clone the repository:
+
 ```
 git clone https://github.com/kdpkst/file-transfer-and-network-traffic-control.git
 ```
+
 2. Change to the source code directory:
+
 ```
 cd file-transfer-and-network-traffic-control/file_transfer/Codes/
 ```
+
 3. Copy server.py to your server. Copy client.py to your device.
-4. **On the server side** (Server will listen on port 1397 if port is not explicitly specified):    
+4. **On the server side** (Server will listen on port 1397 if port is not explicitly specified):
+
 ```
 python3 server.py --port port_to_listen_on
 ```
-5. **On the client side** (Default id is 1202437 if it is not explicitly specified):   
+
+5. **On the client side** (Default id is 1202437 if it is not explicitly specified):
+
 ```
 python3 client.py --server_ip your_server_ip --port server_port --id your_id --f filepath
 ```
 
 ### Document_file_transfer
+
 For more detailed info, please [click](./file_transfer/Report/Report-PartI.pdf) to read the report for this project.
 
 ## SDN-based Network Traffic Control
@@ -114,6 +124,7 @@ The project utilizes [Mininet](https://github.com/mininet/mininet), a powerful t
 <p align="center"><img src="./images/SDN_topo.svg" alt="SDN topo" height="305" width="635" /></p>
 
 ### Requirements_SDN
+
 - Linux environment (Ubuntu 20.04)
 - Python2
 - Python3
@@ -122,34 +133,37 @@ The project utilizes [Mininet](https://github.com/mininet/mininet), a powerful t
 - XTerm (353)
 
 ### Usage_SDN
+
 1. Construct the network topology by running the command in the terminal
+
 ```
  sudo python2 networkTopo.py
 ```
 
 2. Five subterminals appear, then run the controller application in the terminal named Controller
+
 ```
- ryu-manager ryu_forward.py 
+ ryu-manager ryu_forward.py
 ```
-or 
+
+or
+
 ```
- ryu-manager ryu_redirect.py 
+ ryu-manager ryu_redirect.py
 ```
 
 3. Run server.py on the Server1 and Server2, then run client.py on Client node.
+
 ```
  python3 server.py
 ```
+
 ```
  python3 client.py
 ```
+
 4. Observe subterminals info.
 
 ### Document_SDN
+
 For more detailed info, please [click](./network_traffic_control/Report/Report_PartII.pdf) to read the report for this project.
-
-## Contributors
-
-- [Yuzhen Chen](https://github.com/kdpkst)
-- [Bowen Li](https://github.com/refugee123456)
-- [Yizhen Cao](https://github.com/tinshien-Young)
